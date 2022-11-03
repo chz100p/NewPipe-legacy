@@ -78,4 +78,8 @@ public class StreamStateEntity {
             return false;
         }
     }
+    @Override
+    public int hashCode() {
+        return (int) streamUid;
+    }
 }

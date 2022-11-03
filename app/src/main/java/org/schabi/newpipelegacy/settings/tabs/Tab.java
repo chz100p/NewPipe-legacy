@@ -119,6 +119,10 @@ public abstract class Tab {
         return obj instanceof Tab && obj.getClass() == this.getClass()
                 && ((Tab) obj).getTabId() == this.getTabId();
     }
+    @Override
+    public int hashCode() {
+        return this.getTabId();
+    }
 
     /*//////////////////////////////////////////////////////////////////////////
     // JSON Handling
@@ -361,6 +365,10 @@ public abstract class Tab {
             return super.equals(obj) && kioskServiceId == ((KioskTab) obj).kioskServiceId
                     && ObjectsCompat.equals(kioskId, ((KioskTab) obj).kioskId);
         }
+        @Override
+        public int hashCode() {
+            return ID;
+        }
 
         public int getKioskServiceId() {
             return kioskServiceId;
@@ -435,6 +443,10 @@ public abstract class Tab {
             return super.equals(obj) && channelServiceId == ((ChannelTab) obj).channelServiceId
                     && ObjectsCompat.equals(channelUrl, ((ChannelTab) obj).channelUrl)
                     && ObjectsCompat.equals(channelName, ((ChannelTab) obj).channelName);
+        }
+        @Override
+        public int hashCode() {
+            return ID;
         }
 
         public int getChannelServiceId() {
@@ -586,6 +598,10 @@ public abstract class Tab {
             return (playlistId == ((PlaylistTab) obj).playlistId)                     // local
                     || (playlistServiceId == ((PlaylistTab) obj).playlistServiceId    // remote
                     && ObjectsCompat.equals(playlistUrl, ((PlaylistTab) obj).playlistUrl));
+        }
+        @Override
+        public int hashCode() {
+            return ID;
         }
 
         public int getPlaylistServiceId() {

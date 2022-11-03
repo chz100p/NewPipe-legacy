@@ -218,20 +218,21 @@ public class LocalItemListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     @Override
-    public int getItemViewType(int position) {
+    public int getItemViewType(final int position) {
+        int xxposition = position;
         if (DEBUG) {
-            Log.d(TAG, "getItemViewType() called with: position = [" + position + "]");
+            Log.d(TAG, "getItemViewType() called with: position = [" + xxposition + "]");
         }
 
-        if (header != null && position == 0) {
+        if (header != null && xxposition == 0) {
             return HEADER_TYPE;
         } else if (header != null) {
-            position--;
+            xxposition--;
         }
-        if (footer != null && position == localItems.size() && showFooter) {
+        if (footer != null && xxposition == localItems.size() && showFooter) {
             return FOOTER_TYPE;
         }
-        final LocalItem item = localItems.get(position);
+        final LocalItem item = localItems.get(xxposition);
 
         switch (item.getLocalItemType()) {
             case PLAYLIST_LOCAL_ITEM:
@@ -290,24 +291,25 @@ public class LocalItemListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
+        int xxposition = position;
         if (DEBUG) {
             Log.d(TAG, "onBindViewHolder() called with: "
                     + "holder = [" + holder.getClass().getSimpleName() + "], "
-                    + "position = [" + position + "]");
+                    + "position = [" + xxposition + "]");
         }
 
         if (holder instanceof LocalItemHolder) {
             // If header isn't null, offset the items by -1
             if (header != null) {
-                position--;
+                xxposition--;
             }
 
             ((LocalItemHolder) holder)
-                    .updateFromItem(localItems.get(position), recordManager, dateTimeFormatter);
-        } else if (holder instanceof HeaderFooterHolder && position == 0 && header != null) {
+                    .updateFromItem(localItems.get(xxposition), recordManager, dateTimeFormatter);
+        } else if (holder instanceof HeaderFooterHolder && xxposition == 0 && header != null) {
             ((HeaderFooterHolder) holder).view = header;
-        } else if (holder instanceof HeaderFooterHolder && position == sizeConsideringHeader()
+        } else if (holder instanceof HeaderFooterHolder && xxposition == sizeConsideringHeader()
                 && footer != null && showFooter) {
             ((HeaderFooterHolder) holder).view = footer;
         }

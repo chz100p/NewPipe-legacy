@@ -250,20 +250,21 @@ public class InfoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     @Override
-    public int getItemViewType(int position) {
+    public int getItemViewType(final int position) {
+        int xxposition = position;
         if (DEBUG) {
-            Log.d(TAG, "getItemViewType() called with: position = [" + position + "]");
+            Log.d(TAG, "getItemViewType() called with: position = [" + xxposition + "]");
         }
 
-        if (header != null && position == 0) {
+        if (header != null && xxposition == 0) {
             return HEADER_TYPE;
         } else if (header != null) {
-            position--;
+            xxposition--;
         }
-        if (footer != null && position == infoItemList.size() && showFooter) {
+        if (footer != null && xxposition == infoItemList.size() && showFooter) {
             return FOOTER_TYPE;
         }
-        final InfoItem item = infoItemList.get(position);
+        final InfoItem item = infoItemList.get(xxposition);
         switch (item.getInfoType()) {
             case STREAM:
                 return useGridVariant ? GRID_STREAM_HOLDER_TYPE : useMiniVariant
@@ -322,22 +323,23 @@ public class InfoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
+        int xxposition = position;
         if (DEBUG) {
             Log.d(TAG, "onBindViewHolder() called with: "
                     + "holder = [" + holder.getClass().getSimpleName() + "], "
-                    + "position = [" + position + "]");
+                    + "position = [" + xxposition + "]");
         }
         if (holder instanceof InfoItemHolder) {
             // If header isn't null, offset the items by -1
             if (header != null) {
-                position--;
+                xxposition--;
             }
 
-            ((InfoItemHolder) holder).updateFromItem(infoItemList.get(position), recordManager);
-        } else if (holder instanceof HFHolder && position == 0 && header != null) {
+            ((InfoItemHolder) holder).updateFromItem(infoItemList.get(xxposition), recordManager);
+        } else if (holder instanceof HFHolder && xxposition == 0 && header != null) {
             ((HFHolder) holder).view = header;
-        } else if (holder instanceof HFHolder && position == sizeConsideringHeaderOffset()
+        } else if (holder instanceof HFHolder && xxposition == sizeConsideringHeaderOffset()
                 && footer != null && showFooter) {
             ((HFHolder) holder).view = footer;
         }

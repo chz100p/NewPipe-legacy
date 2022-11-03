@@ -224,7 +224,8 @@ public class ContentSettingsFragment extends BasePreferenceFragment {
 
     private void importDatabase(final String filePath) {
         // check if file is supported
-        try (ZipFile zipFile = new ZipFile(filePath)) {
+        try {
+            final ZipFile zipFile = new ZipFile(filePath);
         } catch (final IOException ioe) {
             Toast.makeText(getContext(), R.string.no_valid_zip_file, Toast.LENGTH_SHORT)
                     .show();

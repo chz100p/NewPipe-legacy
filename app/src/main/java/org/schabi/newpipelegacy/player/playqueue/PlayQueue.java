@@ -517,6 +517,10 @@ public abstract class PlayQueue implements Serializable {
 
         return true;
     }
+    @Override
+    public int hashCode() {
+        return -1;
+    }
 
     public boolean isDisposed() {
         return disposed;

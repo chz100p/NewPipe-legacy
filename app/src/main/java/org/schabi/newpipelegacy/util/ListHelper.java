@@ -278,25 +278,26 @@ public final class ListHelper {
      * @param audioStreams List of audio streams
      * @return Index of audio stream that produces the most compact results or -1 if not found
      */
-    static int getHighestQualityAudioIndex(@Nullable MediaFormat format,
+    static int getHighestQualityAudioIndex(@Nullable final MediaFormat format,
                                            final List<AudioStream> audioStreams) {
+        MediaFormat xxformat = format;
         int result = -1;
         if (audioStreams != null) {
             while (result == -1) {
                 AudioStream prevStream = null;
                 for (int idx = 0; idx < audioStreams.size(); idx++) {
                     final AudioStream stream = audioStreams.get(idx);
-                    if ((format == null || stream.getFormat() == format)
+                    if ((xxformat == null || stream.getFormat() == xxformat)
                             && (prevStream == null || compareAudioStreamBitrate(prevStream, stream,
                                     AUDIO_FORMAT_QUALITY_RANKING) < 0)) {
                         prevStream = stream;
                         result = idx;
                     }
                 }
-                if (result == -1 && format == null) {
+                if (result == -1 && xxformat == null) {
                     break;
                 }
-                format = null;
+                xxformat = null;
             }
         }
         return result;
@@ -310,25 +311,26 @@ public final class ListHelper {
      * @param audioStreams List of audio streams
      * @return Index of audio stream that produces the most compact results or -1 if not found
      */
-    static int getMostCompactAudioIndex(@Nullable MediaFormat format,
+    static int getMostCompactAudioIndex(@Nullable final MediaFormat format,
                                         final List<AudioStream> audioStreams) {
+        MediaFormat xxformat = format;
         int result = -1;
         if (audioStreams != null) {
             while (result == -1) {
                 AudioStream prevStream = null;
                 for (int idx = 0; idx < audioStreams.size(); idx++) {
                     final AudioStream stream = audioStreams.get(idx);
-                    if ((format == null || stream.getFormat() == format)
+                    if ((xxformat == null || stream.getFormat() == xxformat)
                             && (prevStream == null || compareAudioStreamBitrate(prevStream, stream,
                                     AUDIO_FORMAT_EFFICIENCY_RANKING) > 0)) {
                         prevStream = stream;
                         result = idx;
                     }
                 }
-                if (result == -1 && format == null) {
+                if (result == -1 && xxformat == null) {
                     break;
                 }
-                format = null;
+                xxformat = null;
             }
         }
         return result;
